@@ -49,9 +49,14 @@
 
 # React Hooks
 
-- They are simple normal javascript utility function.
+- They are simple normal javascript utility function.(facebook developer right this)
 - Two Types -->
-  - useState()  -> Superpowerful staate variables in react --> It is import from "react"
+  - useState()  -> Superpowerful state variables in react --> It is import from "react"
   - useEffect()
 
   --> whenever a state variable updates, react rerenders the components.
+
+  # Two Types of routing in web apps
+
+  - Client side routing
+  - Server side routing

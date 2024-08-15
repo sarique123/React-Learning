@@ -137,95 +137,65 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
+import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Error from "./components/Error";
+import RestaurantMenu from "./components/RestaurantMenu";
 
-const resObject = {
-  info: {
-    id: "637321",
-    name: "Pizza Hut",
-    cloudinaryImageId: "2b4f62d606d1b2bfba9ba9e5386fabb7",
-    locality: "Hardoi Road",
-    areaName: "Daulatganj",
-    costForTwo: "₹350 for two",
-    cuisines: ["Pizzas"],
-    avgRating: 4.2,
-    parentId: "721",
-    avgRatingString: "4.2",
-    totalRatingsString: "1K+",
-    sla: {
-      deliveryTime: 36,
-      lastMileTravel: 3.8,
-      serviceability: "SERVICEABLE",
-      slaString: "35-40 mins",
-      lastMileTravelString: "3.8 km",
-      iconType: "ICON_TYPE_EMPTY",
-    },
-    availability: {
-      nextCloseTime: "2024-07-08 04:00:00",
-      opened: true,
-    },
-    badges: {
-      imageBadges: [
-        {
-          imageId: "Rxawards/_CATEGORY-Pizza.png",
-          description: "Delivery!",
-        },
-      ],
-    },
-    isOpen: true,
-    type: "F",
-    badgesV2: {
-      entityBadges: {
-        imageBased: {
-          badgeObject: [
-            {
-              attributes: {
-                description: "Delivery!",
-                imageId: "Rxawards/_CATEGORY-Pizza.png",
-              },
-            },
-          ],
-        },
-        textBased: {},
-        textExtendedBadges: {},
-      },
-    },
-    aggregatedDiscountInfoV3: {
-      header: "ITEMS",
-      subHeader: "AT ₹189",
-    },
-    differentiatedUi: {
-      displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-      differentiatedUiMediaDetails: {
-        mediaType: "ADS_MEDIA_ENUM_IMAGE",
-        lottie: {},
-        video: {},
-      },
-    },
-    reviewsSummary: {},
-    displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-    restaurantOfferPresentationInfo: {},
-  },
-  analytics: {},
-  cta: {
-    link: "https://www.swiggy.com/restaurants/pizza-hut-hardoi-road-daulatganj-lucknow-637321",
-    type: "WEBLINK",
-  },
-};
+
+const Grocery = lazy(() => import("./components/Grocery"));
+
+// chunking 
+// code splitting
+// dynamic bundling
+// On demand loading
+// lazy loading
 
 const AppLayout = () => {
   return (
     <div className="app">
       <Header />
-      <Body />
+      <Outlet />
     </div>
   );
 };
 
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Body />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/grocery",
+        element: <Suspense fallback={<h1>Loading...</h1>}>
+          <Grocery />
+          </Suspense>,
+      },
+      {
+        path: "/restaurants/:resId",
+        element: <RestaurantMenu />,
+      },
+    ],
+    errorElement: <Error />,
+  },
+]);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<AppLayout />);
+root.render(<RouterProvider router={appRouter} />);

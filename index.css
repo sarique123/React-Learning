@@ -1,4 +1,8 @@
-.header {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .header {
   display: flex;
   justify-content: space-between;
   border: 1px solid black;
@@ -49,8 +53,24 @@
   margin: 20px;
   cursor: pointer;
 }
+.login-btn{
+  margin: auto;
+  font-size: 16px;
+  cursor: pointer;
+}
+.filter{
+  display: flex;
+  flex: wrap;
+}
+.search-box{
+  margin-top: 10px;
+}
+.user-card{
+  padding : 10px;
+  border: 1px solid black;
+} */
 
-.shimmer-container{
+/* .shimmer-container{
   display: flex;
   flex-wrap: wrap;
 }
@@ -89,20 +109,5 @@
   height: 20px;
   background-color: #c0bebe;
   border-radius: 12px;
-}
-.login-btn{
-  margin: auto;
-  font-size: 16px;
-  cursor: pointer;
-}
-.filter{
-  display: flex;
-  flex: wrap;
-}
-.search-box{
-  margin-top: 10px;
-}
-.user-card{
-  padding : 10px;
-  border: 1px solid black;
-}
+} */
+
